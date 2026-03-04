@@ -1,0 +1,21 @@
+databases:
+  - name: rivet-db
+    plan: basic-256mb
+    databaseName: rivet
+    user: rivet
+
+services:
+  - type: web
+    name: rivet-engine
+    runtime: image
+    image:
+      url: docker.io/rivetdev/engine:latest
+    plan: starter
+    healthCheckPath: /health
+    envVars:
+      - key: RIVET__POSTGRES__URL
+        fromDatabase:
+          name: rivet-db
+          property: connectionString
+      - key: RIVET__AUTH__ADMIN_TOKEN
+        generateValue: true

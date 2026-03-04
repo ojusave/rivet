@@ -7,6 +7,7 @@ import {
 	faPlus,
 	faQuestionCircle,
 	faRailway,
+	faRender,
 	faServer,
 	faVercel,
 	Icon,
@@ -263,19 +264,30 @@ function ProviderDropdown({ children }: { children: React.ReactNode }) {
 				>
 					Vercel
 				</DropdownMenuItem>
-				<DropdownMenuItem
-					indicator={<Icon icon={faRailway} />}
-					onSelect={() =>
-						navigate({
-							to: ".",
-							search: { modal: "connect-railway" },
-						})
-					}
-				>
-					Railway
-				</DropdownMenuItem>
-				<DropdownMenuItem
-					indicator={<Icon icon={faAws} />}
+			<DropdownMenuItem
+				indicator={<Icon icon={faRailway} />}
+				onSelect={() =>
+					navigate({
+						to: ".",
+						search: { modal: "connect-railway" },
+					})
+				}
+			>
+				Railway
+			</DropdownMenuItem>
+			<DropdownMenuItem
+				indicator={<Icon icon={faRender} />}
+				onSelect={() =>
+					navigate({
+						to: ".",
+						search: { modal: "connect-render" },
+					})
+				}
+			>
+				Render
+			</DropdownMenuItem>
+			<DropdownMenuItem
+				indicator={<Icon icon={faAws} />}
 					onSelect={() =>
 						navigate({
 							to: ".",

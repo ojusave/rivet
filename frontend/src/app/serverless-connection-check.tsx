@@ -117,23 +117,24 @@ export function ServerlessConnectionCheck({
 								icon={faCheck}
 								className="mr-1.5 text-primary"
 							/>
-							{match(provider)
-								.with("railway", () => "Railway")
-								.with("vercel", () => "Vercel")
-								.with("aws-ecs", () => "AWS ECS")
-								.with(
-									"cloudflare-workers",
-									() => "Cloudflare Worker",
-								)
-								.with("gcp-cloud-run", () => "GCP Cloud Run")
-								.with("hetzner", () => "Hetzner")
-								.with("kubernetes", () => "Kubernetes")
-								.with("custom", () => "VM & Bare Metal")
-								.with(
-									"custom-platform",
-									() => "Custom Platform",
-								)
-								.exhaustive()}{" "}
+						{match(provider)
+							.with("railway", () => "Railway")
+							.with("render", () => "Render")
+							.with("vercel", () => "Vercel")
+							.with("aws-ecs", () => "AWS ECS")
+							.with(
+								"cloudflare-workers",
+								() => "Cloudflare Worker",
+							)
+							.with("gcp-cloud-run", () => "GCP Cloud Run")
+							.with("hetzner", () => "Hetzner")
+							.with("kubernetes", () => "Kubernetes")
+							.with("custom", () => "VM & Bare Metal")
+							.with(
+								"custom-platform",
+								() => "Custom Platform",
+							)
+							.exhaustive()}{" "}
 							is running with RivetKit {data.success.version}
 						</>
 					) : !isLoading ? (

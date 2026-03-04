@@ -5,6 +5,7 @@ import {
 	faHetznerH,
 	faKubernetes,
 	faRailway,
+	faRender,
 	faRocket,
 	faServer,
 	faVercel,
@@ -39,6 +40,15 @@ export const deployOptions = [
 		description:
 			"Deploy containers to Railway's managed infrastructure",
 		icon: faRailway as any,
+		badge: "1-Click Deploy",
+	},
+	{
+		displayName: "Render",
+		name: "render" as const,
+		href: "/docs/connect/render",
+		description:
+			"Deploy to Render's managed cloud platform with auto-scaling",
+		icon: faRender as any,
 		badge: "1-Click Deploy",
 	},
 	{

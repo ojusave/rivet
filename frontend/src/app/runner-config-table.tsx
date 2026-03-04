@@ -7,6 +7,7 @@ import {
 	faNextjs,
 	faPencil,
 	faRailway,
+	faRender,
 	faTrash,
 	faTriangleExclamation,
 	faVercel,
@@ -402,6 +403,13 @@ function Provider({ metadata }: { metadata: unknown }) {
 			return (
 				<div className="whitespace-nowrap">
 					<Icon icon={faRailway} className="mr-1" /> Railway
+				</div>
+			);
+		}
+		if (metadata.provider === "render") {
+			return (
+				<div className="whitespace-nowrap">
+					<Icon icon={faRender} className="mr-1" /> Render
 				</div>
 			);
 		}

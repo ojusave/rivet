@@ -20,6 +20,9 @@ export const useDialog = {
 	ConnectQuickRailway: createDialogHook(
 		() => import("@/app/dialogs/connect-quick-railway-frame"),
 	),
+	ConnectRender: createDialogHook(
+		() => import("@/app/dialogs/connect-render-frame"),
+	),
 	ConnectManual: createDialogHook(
 		() => import("@/app/dialogs/connect-manual-frame"),
 	),

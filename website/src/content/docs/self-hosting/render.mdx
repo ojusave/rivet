@@ -1,0 +1,94 @@
+---
+title: "Render Deployment"
+description: "Render provides a simple platform for deploying Rivet Engine with managed PostgreSQL and automatic HTTPS."
+skill: true
+---
+
+## Quick Deploy
+
+Deploy Rivet Engine to Render using the Blueprint below or the template repository.
+
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/rivet-dev/template-render)
+
+You can also use the [Rivet Render template](https://github.com/rivet-dev/template-render) as a starting point.
+
+<Note>
+After deploying, you can find the `RIVET__AUTH__ADMIN_TOKEN` under the **Environment** tab in the Render dashboard. This token is required to access the Rivet Inspector.
+</Note>
+
+## Blueprint
+
+Create a `render.yaml` file in your repository to deploy with [Render Blueprints](https://docs.render.com/infrastructure-as-code):
+
+```yaml render.yaml
+databases:
+  - name: rivet-db
+    plan: basic-256mb
+    databaseName: rivet
+    user: rivet
+
+services:
+  - type: web
+    name: rivet-engine
+    runtime: image
+    image:
+      url: docker.io/rivetdev/engine:latest
+    plan: starter
+    healthCheckPath: /health
+    envVars:
+      - key: RIVET__POSTGRES__URL
+        fromDatabase:
+          name: rivet-db
+          property: connectionString
+      - key: RIVET__AUTH__ADMIN_TOKEN
+        generateValue: true
+```
+
+Then go to **Blueprints** in the Render Dashboard and connect your repository.
+
+## Manual Deployment
+
+### Prerequisites
+
+1. [Render account](https://render.com)
+
+### Step 1: Create PostgreSQL Database
+
+1. Go to the [Render Dashboard](https://dashboard.render.com/)
+2. Click **New** → **PostgreSQL**
+3. Configure your database:
+   - **Name**: `rivet-db`
+   - **Plan**: Choose based on your needs (Basic 256MB for testing)
+4. Click **Create Database**
+5. Note the **Internal Connection String** from the database info page
+
+### Step 2: Deploy Rivet Engine
+
+1. Click **New** → **Web Service**
+2. Select **Deploy an existing image from a registry**
+3. Enter image URL: `docker.io/rivetdev/engine:latest`
+4. Configure the service:
+   - **Name**: `rivet-engine`
+   - **Plan**: Starter or higher
+5. Add environment variables:
+   - `RIVET__POSTGRES__URL` = your database's Internal Connection String
+   - `RIVET__AUTH__ADMIN_TOKEN` = a secure random value (use a password generator)
+6. Click **Create Web Service**
+
+### Step 3: Access Rivet Inspector
+
+Once deployed, access the Rivet Inspector at your service URL (e.g., `https://rivet-engine-xxxx.onrender.com`) using your admin token.
+
+## Connecting Your Application
+
+After deploying the Rivet Engine, configure your RivetKit application with:
+
+```bash
+RIVET_ENDPOINT=https://rivet-engine-xxxx.onrender.com
+RIVET_PUBLIC_ENDPOINT=https://rivet-engine-xxxx.onrender.com
+```
+
+Replace `rivet-engine-xxxx` with your actual Render service URL.
+
+See the [Connect guide](/docs/connect/render) for deploying your RivetKit application to Render.
+

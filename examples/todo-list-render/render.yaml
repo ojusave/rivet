@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: todo-list-rivetkit
+    runtime: node
+    buildCommand: npm install && npm run build
+    startCommand: npm run start
+    plan: starter
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: RIVET_ENDPOINT
+        sync: false
+      - key: RIVET_PUBLIC_ENDPOINT
+        sync: false

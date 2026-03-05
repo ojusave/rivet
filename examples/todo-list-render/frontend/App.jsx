@@ -1,19 +1,11 @@
 import { useState } from "react";
 import { createClient, useActor, useActorEvent } from "@rivetkit/react";
-import type { registry } from "../src/actors.ts";
 
-const client = createClient<typeof registry>("/api/rivet");
-
-interface Todo {
-	id: string;
-	text: string;
-	completed: boolean;
-	createdAt: number;
-}
+const client = createClient("/api/rivet");
 
 function TodoApp() {
 	const [{ actor }] = useActor(client, "todoList", "shared-list");
-	const [todos, setTodos] = useState<Todo[]>([]);
+	const [todos, setTodos] = useState([]);
 	const [newTodo, setNewTodo] = useState("");
 
 	useActorEvent(actor, "todosUpdated", (updatedTodos) => {
@@ -26,11 +18,11 @@ function TodoApp() {
 		setNewTodo("");
 	};
 
-	const handleToggle = async (id: string) => {
+	const handleToggle = async (id) => {
 		await actor.toggleTodo(id);
 	};
 
-	const handleDelete = async (id: string) => {
+	const handleDelete = async (id) => {
 		await actor.deleteTodo(id);
 	};
 

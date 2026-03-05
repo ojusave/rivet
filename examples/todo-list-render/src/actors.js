@@ -1,24 +1,17 @@
 import { actor, setup, event } from "rivetkit";
 
-interface Todo {
-	id: string;
-	text: string;
-	completed: boolean;
-	createdAt: number;
-}
-
 export const todoList = actor({
 	state: {
-		todos: [] as Todo[],
+		todos: [],
 	},
 
 	events: {
-		todosUpdated: event<Todo[]>(),
+		todosUpdated: event(),
 	},
 
 	actions: {
-		addTodo: (c, text: string) => {
-			const todo: Todo = {
+		addTodo: (c, text) => {
+			const todo = {
 				id: crypto.randomUUID(),
 				text,
 				completed: false,
@@ -29,7 +22,7 @@ export const todoList = actor({
 			return todo;
 		},
 
-		toggleTodo: (c, id: string) => {
+		toggleTodo: (c, id) => {
 			const todo = c.state.todos.find((t) => t.id === id);
 			if (todo) {
 				todo.completed = !todo.completed;
@@ -38,7 +31,7 @@ export const todoList = actor({
 			return c.state.todos;
 		},
 
-		deleteTodo: (c, id: string) => {
+		deleteTodo: (c, id) => {
 			c.state.todos = c.state.todos.filter((t) => t.id !== id);
 			c.broadcast("todosUpdated", c.state.todos);
 			return c.state.todos;

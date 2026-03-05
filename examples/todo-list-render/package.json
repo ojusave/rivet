@@ -5,16 +5,11 @@
 	"type": "module",
 	"scripts": {
 		"dev": "vite",
-		"check-types": "tsc --noEmit",
 		"build": "vite build && vite build --mode server",
 		"start": "srvx --static=public/ dist/server.js"
 	},
 	"devDependencies": {
-		"@types/node": "^22.13.9",
-		"@types/react": "^18.2.0",
-		"@types/react-dom": "^18.2.0",
 		"@vitejs/plugin-react": "^4.2.0",
-		"typescript": "^5.5.2",
 		"vite": "^5.0.0",
 		"vite-plugin-srvx": "^1.0.2"
 	},
